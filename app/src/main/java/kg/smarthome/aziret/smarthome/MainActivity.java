@@ -24,7 +24,7 @@ import java.util.List;
 import kg.smarthome.aziret.tools.Tools;
 
 
-public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
+public class MainActivity extends AppCompatActivity {
     final int REQUEST_CODE_BLUETOOTH = 1;
     private static final int REQUEST_RECOGNITION = 1;
 
@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         startRecognizer = (Button) findViewById(R.id.startrecognizer);
         startRecognizer.setEnabled(false);
         spinnerResult = (Spinner) findViewById(R.id.result);
-        tts = new TextToSpeech(this, this);
+        tts = new TextToSpeech(this, this);*/
     }
 
     @Override
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        /*
         if ((requestCode == REQUEST_RECOGNITION) & (resultCode == RESULT_OK)) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, result);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             spinnerResult.setAdapter(adapter);
             spinnerResult.setOnItemSelectedListener(spinnerResultOnItemSelectedListener);
         }
-
+*/
     }
     private void msg(String s)
     {
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speech to Recognize");
         startActivityForResult(intent, REQUEST_RECOGNITION);
     }
+    /*
     private Spinner.OnItemSelectedListener spinnerResultOnItemSelectedListener = new Spinner.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -155,7 +157,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         public void onNothingSelected(AdapterView<?> arg0) {
         }
     };
+    */
     public void onInit(int arg0) {
         startRecognizer.setEnabled(true);
     }
+
 }

@@ -43,7 +43,7 @@
         android:layout_centerHorizontal="true" />
 
 
-    <Button
+    <!--Button
         android:id="@+id/startrecognizer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -68,6 +68,7 @@
         android:id="@+id/textView"
         android:layout_below="@+id/lamp3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true" /-->
+    */
 
 </RelativeLayout>
