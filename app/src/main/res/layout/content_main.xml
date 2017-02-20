@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="kg.smarthome.aziret.smarthome.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="280dip"
+        android:layout_height="120dip"
+        android:id="@+id/lamp1"
+        android:onClick="lampButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/lamp2"
+        android:layout_alignStart="@+id/lamp2" />
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="280dip"
+        android:layout_height="120dip"
+        android:id="@+id/lamp2"
+        android:onClick="lampButton"
+        android:layout_below="@+id/lamp1"
+        android:layout_alignLeft="@+id/lamp3"
+        android:layout_alignStart="@+id/lamp3" />
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="200dip"
+        android:layout_height="120dip"
+        android:id="@+id/lamp3"
+        android:onClick="lampButton"
+        android:layout_below="@+id/lamp2"
+        android:layout_centerHorizontal="true" />
+
+
+    <Button
+        android:id="@+id/startrecognizer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Голос"
+        android:layout_below="@+id/result"
+        android:onClick="speechButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/textView"
+        android:layout_below="@+id/lamp3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

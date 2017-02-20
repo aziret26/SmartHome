@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Smart Home</string>
+    <string name="action_settings">Settings</string>
+    <string name="bt_state_str">Bluetooth state</string>
+    <string name="bt_settings">Bluetooth Settings</string>
+    <string name="show_dev_ls">Show device list</string>
+</resources>
