@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     flag = true;
                     break;
                 }
-                if(!flag) {
-                    msg("Не распознано");
-                }
+            }
+            if(!flag) {
+                msg("Не распознано");
             }
         }catch (Exception ex){
             ex.printStackTrace();
