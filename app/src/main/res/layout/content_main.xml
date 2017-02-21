@@ -35,40 +35,36 @@
 
     <ToggleButton
         android:text="ToggleButton"
-        android:layout_width="200dip"
         android:layout_height="120dip"
         android:id="@+id/lamp3"
         android:onClick="lampButton"
         android:layout_below="@+id/lamp2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_width="280dip" />
 
 
-    <!--Button
+    <Button
         android:id="@+id/startrecognizer"
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Голос"
-        android:layout_below="@+id/result"
+        android:layout_below="@+id/textView"
         android:onClick="speechButton"
+        android:gravity="center"
+        android:layout_marginLeft="130dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_width="100dp" />
 
-    <Spinner
-        android:id="@+id/result"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/textView"
         android:layout_below="@+id/lamp3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" /-->
-    */
+        android:layout_alignParentStart="true"
+        android:layout_height="40dp" />
+
 
 </RelativeLayout>

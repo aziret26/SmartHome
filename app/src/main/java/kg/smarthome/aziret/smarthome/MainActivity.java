@@ -24,16 +24,13 @@ import java.util.List;
 import kg.smarthome.aziret.tools.Tools;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     final int REQUEST_CODE_BLUETOOTH = 1;
     private static final int REQUEST_RECOGNITION = 1;
 
     private TextToSpeech tts;
 
     private Button startRecognizer;
-    private Spinner spinnerResult;
-
-    Tools tool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-/*
+
         startRecognizer = (Button) findViewById(R.id.startrecognizer);
         startRecognizer.setEnabled(false);
-        spinnerResult = (Spinner) findViewById(R.id.result);
-        tts = new TextToSpeech(this, this);*/
+        tts = new TextToSpeech(this, this);
     }
 
     @Override
@@ -74,56 +70,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void lampButton(View v){
 
-        if(BluetoothActivity.outputStream != null) {
-            int id = v.getId();
             ToggleButton t = (ToggleButton) v;
-            try {
-                    if (id == R.id.lamp1) {
-                        if(t.isChecked()) {
-                            BluetoothActivity.outputStream.write(11);
-                        }else {
-                            BluetoothActivity.outputStream.write(10);
-                        }
-                    }
+            lampState(t);
 
-                    if (id == R.id.lamp2) {
-                        if(t.isChecked()) {
-                            BluetoothActivity.outputStream.write(21);
-                        }else {
-                            BluetoothActivity.outputStream.write(20);
-                        }
-                    }
-
-                    if (id == R.id.lamp3) {
-                        if(t.isChecked()) {
-                            BluetoothActivity.outputStream.write(31);
-                        }else {
-                            BluetoothActivity.outputStream.write(30);
-                        }
-                    }
-
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }else{
-            msg("no device is connected");
-        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        /*
+
         if ((requestCode == REQUEST_RECOGNITION) & (resultCode == RESULT_OK)) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, result);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerResult.setAdapter(adapter);
-            spinnerResult.setOnItemSelectedListener(spinnerResultOnItemSelectedListener);
+            analyzeSpeech(adapter);
         }
-*/
+
     }
-    private void msg(String s)
-    {
+    private void msg(String s) {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
@@ -134,32 +96,87 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speech to Recognize");
         startActivityForResult(intent, REQUEST_RECOGNITION);
     }
-    /*
-    private Spinner.OnItemSelectedListener spinnerResultOnItemSelectedListener = new Spinner.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            String sr = parent.getItemAtPosition(position).toString();
-            ToggleButton tb;
 
-            int c =parent.getCount();
-            boolean flag;
-            for(int i = 0;i < c;i++){
-                String sr = parent.getItemAtPosition(position).toString();
-                if(sr.equals("зелёный") || sr.equals("зелёный")){
-                    tb = (ToggleButton) findViewById(R.id.lamp3);
-                }
-
-            }
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> arg0) {
-        }
-    };
-    */
     public void onInit(int arg0) {
         startRecognizer.setEnabled(true);
     }
+    public void analyzeSpeech(ArrayAdapter<?> adapter){
+        int count = adapter.getCount();
+        ToggleButton tb;
+        boolean flag =false;
+        try {
+            for (int i = 0; i < count; i++) {
+                String sr = adapter.getItem(i).toString();
+                if (sr.equals("зелёный") || sr.equals("зеленый")) {
+                    tb = (ToggleButton) findViewById(R.id.lamp1);
+                    changeButtonState(tb);
+                    lampState(tb);
+                    msg("Green");
+                    flag = true;
+                    break;
+                }
+                if (sr.equals("желтый") || sr.equals("жёлтый")) {
+                    tb = (ToggleButton) findViewById(R.id.lamp2);
+                    changeButtonState(tb);
+                    lampState(tb);
+                    msg("yellow");
+                    flag = true;
+                    break;
+                }
+                if (sr.equals("красный")) {
+                    tb = (ToggleButton) findViewById(R.id.lamp3);
+                    changeButtonState(tb);
+                    lampState(tb);
+                    msg("red");
+                    flag = true;
+                    break;
+                }
+                if(!flag) {
+                    msg("Не распознано");
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    public void changeButtonState(ToggleButton tb){
+        tb.setChecked(!tb.isChecked());
+    }
 
+    public void lampState(ToggleButton tb){
+
+        if(BluetoothActivity.outputStream != null) {
+            try {
+                if (tb.getId() == R.id.lamp1) {
+                    if(tb.isChecked()) {
+                        BluetoothActivity.outputStream.write(11);
+                    }else {
+                        BluetoothActivity.outputStream.write(10);
+                    }
+                }
+
+                if (tb.getId() == R.id.lamp2) {
+                    if(tb.isChecked()) {
+                        BluetoothActivity.outputStream.write(21);
+                    }else {
+                        BluetoothActivity.outputStream.write(20);
+                    }
+                }
+
+                if (tb.getId() == R.id.lamp3) {
+                    if(tb.isChecked()) {
+                        BluetoothActivity.outputStream.write(31);
+                    }else {
+                        BluetoothActivity.outputStream.write(30);
+                    }
+                }
+
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }else{
+            msg("no device is connected");
+        }
+    }
 }
